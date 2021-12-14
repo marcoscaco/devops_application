@@ -1,0 +1,10 @@
+replicaCount: 1
+main:
+  name: main
+  group: backend
+  container:
+    image: devops_app:latest
+    port: 8080
+  service:
+    type: ClusterIP
+    port: 8080
