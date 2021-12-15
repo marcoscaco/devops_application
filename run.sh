@@ -14,7 +14,7 @@ echo "1 - Run localy kubernetes with MiniKube"
 echo "2 - Stop localy kubernetes with MiniKube"
 echo "3 - List Kubernets PODS"
 echo "4 - Build the application image"
-echo "5 - run the application image in Docker)"
+echo "5 - run the application image in Docker"
 echo "99 - Remove needed homebrew dependencies"
 
 read -r option;
@@ -31,10 +31,16 @@ then
   echo "${red} Let's run the MiniKube Cluster"
   echo "${red} This will set some kubernetes enviroment variables for you, so remember to use the option 2 to gracefully tear down"
   echo -e "${reset}"
+  echo "${green} we will build the application using the TAG devops_application:latest"
+  docker build -t devops_application:v1 ./src/main
   minikube start
-  eval '$(minikube docker-env)'
+  echo "${green} we will load the image on the minikube image cache to be used"
+  minikube cache add devops_application:latest
+  eval $(minikube docker-env)
+    docker build -t devops_application:v1 ./src/main
+  docker image list
   helm install redis ./redis
-#  helm install main ./main
+  helm install main ./main
   echo -e "\n ${green}Wait a second for the cluster"
   sleep 1
   echo -e "\n ${green}Wait a second for the cluster - Done"

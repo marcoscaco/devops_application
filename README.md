@@ -46,7 +46,7 @@
 
 ## Como executar
     Disclaimer[1]: Buscando manter a sanidade mental do autor as instruções a seguir são aplicaveis a usuários do Mac Os (e por sua vez replicaveis com alguns ajustes no linux)
-    Disclaimer[2]: Minimamente faz-se necessário o  Homebrew instalado e disponivel para o usuário atual
+    Disclaimer[2]: Minimamente faz-se necessário o Homebrew instalado e disponivel para o usuário atual
 
  - Devemos utilizar a opção **0** do script **run.sh** para instalar os componentes necessários no ambiente de desenvolvimento
  - Devemos utilizar a opção **1** do script **run.sh** para executar a aplicação utilizando o mini cluster (minikube)
