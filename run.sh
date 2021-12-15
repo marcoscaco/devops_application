@@ -15,6 +15,8 @@ echo "2 - Stop localy kubernetes with MiniKube"
 echo "3 - List Kubernets PODS"
 echo "4 - Build the application image"
 echo "5 - run the application image in Docker"
+echo "6 - Build the application image and save as TAR"
+echo "7 - Run api tests"
 echo "99 - Remove needed homebrew dependencies"
 
 read -r option;
@@ -42,12 +44,12 @@ then
   docker image list
   helm install redis ./redis
   helm install main ./main
-  echo -e "\n ${green}Wait a second for the cluster"
-  sleep 1
-  echo -e "\n ${green}Wait a second for the cluster - Done"
   echo -e "\n ${green}Listing PODS with: ${red}kubectl get pods --watch - ${green}you can safely use ctrl+c to exit the script now \n${reset}"
+  echo -e "\n ${green}Wait a second for the cluster"
+  sleep 5
+  /bin/bash -c "kubectl port-forward service/main 5001:5001" &
+  echo -e "\n ${green}Wait a second for the cluster - Done"
   echo -e "${reset}"
-  kubectl get pods --watch
 fi
 
 if [ "$option" == "2" ];
@@ -77,6 +79,21 @@ if [ "$option" == "5" ];
 then
   echo "${green} we will run the application using the TAG devops_application:latest in Docker"
   docker run devops_application:latest
+fi
+
+if [ "$option" == "6" ];
+then
+  echo "${green} we build the application with docker and save on current directory with name: devops_application.tar"
+  docker build --output type=tar,dest=devops_application.tar ./src/main
+fi
+
+if [ "$option" == "7" ];
+then
+  echo "${green} Testing application..."
+  docker run -it -v $(pwd)/tests:/etc/newman -t postman/newman \
+      run devops_application.postman_collection.json \
+      --environment="docker.postman_environment.json"
+
 fi
 
 if [ "$option" == "99" ];

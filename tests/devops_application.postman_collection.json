@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "5cfb82e3-87a1-4360-b750-0b7e845dbc10",
+		"name": "devops_application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CT0001-Health Check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"CT0001-Validar a vida da api\", function(){",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(pm.response.text()).to.include(\"uptime\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{url}}/api/status",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"status"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "teste",
+							"disabled": true
+						},
+						{
+							"key": "value",
+							"value": "1234",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CT0002-Put data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"CT0002-Validar a inserção de dados via api\", function(){",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(pm.response.text()).to.include(\"INSERIDA\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{url}}/api/put?key=teste&value={{data_value}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"put"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "teste"
+						},
+						{
+							"key": "value",
+							"value": "{{data_value}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CT0003-Get Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"CT0003-Validar o retorno de dados via api\", function(){",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(pm.response.text()).to.include(\"get\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{url}}/api/get?key=teste&value={{data_value}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"get"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "teste"
+						},
+						{
+							"key": "value",
+							"value": "{{data_value}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CT0004-Delete Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"CT0004-Validar A remoção de dados via api\", function(){",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(pm.response.text()).to.include(\"REMOVIDA\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{url}}/api/delete?key=teste&value={{data_value}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "teste"
+						},
+						{
+							"key": "value",
+							"value": "{{data_value}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "0.0.0.0:5001"
+		},
+		{
+			"key": "data_value",
+			"value": "12343432"
+		}
+	]
+}
