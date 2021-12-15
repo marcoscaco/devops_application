@@ -37,7 +37,8 @@ then
   echo "${green} we will load the image on the minikube image cache to be used"
   minikube cache add devops_application:latest
   eval $(minikube docker-env)
-    docker build -t devops_application:v1 ./src/main
+  /bin/bash -c "minikube dashboard" &
+  docker build -t devops_application:v1 ./src/main
   docker image list
   helm install redis ./redis
   helm install main ./main

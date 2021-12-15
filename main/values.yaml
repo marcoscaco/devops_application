@@ -4,7 +4,7 @@ main:
   group: backend
   container:
     image: devops_application:v1
-    port: 8080
+    port: 5001
   service:
     type: ClusterIP
-    port: 8080
+    port: 5001

@@ -16,5 +16,6 @@ RUN CGO_ENABLED=0 go build -o /bin/main
 # Iniciamos o container com uma nova imagem linux sem nenhuma dependencia 
 # para diminuir o tamnho do build final visto que só precisamos do binário compilado
 FROM scratch
+EXPOSE 5001
 COPY --from=build /bin/main /bin/main
 ENTRYPOINT ["/bin/main"]
