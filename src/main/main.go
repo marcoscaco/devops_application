@@ -148,7 +148,7 @@ func main() {
 	handler.HandleFunc("/api/get", _api.get)
 	handler.HandleFunc("/api/put", _api.insert)
 	handler.HandleFunc("/api/delete", _api.remove)
-
+	fmt.Println("INICIANDO SERVIDOR - NOW LISTENING")
 	http.ListenAndServe("0.0.0.0:8080", handler)
 	// Listen to all request to port 8080.
 }
